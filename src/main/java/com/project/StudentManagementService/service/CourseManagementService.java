@@ -15,7 +15,7 @@ import com.project.StudentManagementService.repository.CourseRepository;
 public class CourseManagementService {
 
 	@Autowired
-	CourseRepository courseRepository;
+	public CourseRepository courseRepository;
 	
 	public void saveCourse(Course course){
 		courseRepository.save(course);

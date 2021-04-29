@@ -40,4 +40,13 @@ public class StudentManagementServiceTests extends StudentManagementServiceAppli
 		searchCriteria.setLastName("vijay");
 		studentService.fetchStudents(new SearchCriteria());
 	}
+	
+	@Test
+	public void testValidateStudent(){
+		Student student = new Student();
+		student.setEmail("");
+		student.setFirstName("");
+		student.setLastName("");
+		studentService.validateStudent(student);
+	}
 }

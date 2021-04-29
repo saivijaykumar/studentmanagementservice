@@ -31,10 +31,19 @@ public class CourseManagementServiceTests extends StudentManagementServiceApplic
 		courseManagementService.saveCourse(course);
 	}
 	
+	@Test
 	public void testSearchCourse(){
 		SearchCourseCriteria searchCourseCriteria = new SearchCourseCriteria();
 		searchCourseCriteria.setDescription("java");
 		searchCourseCriteria.setName("java");
 		courseManagementService.fetchCourses(searchCourseCriteria);
+	}
+	
+	@Test
+	public void testValidateCourse(){
+		Course course = new Course();
+		course.setDescription("");
+		course.setName("");
+		courseManagementService.validateCourse(course);
 	}
 }

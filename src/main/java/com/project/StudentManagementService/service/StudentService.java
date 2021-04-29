@@ -15,7 +15,7 @@ import com.project.StudentManagementService.repository.StudentRepository;
 public class StudentService {
 
 	@Autowired
-	StudentRepository studentRepository;
+	public StudentRepository studentRepository;
 	
 	public void saveStudent(Student student){
 		studentRepository.save(student);
