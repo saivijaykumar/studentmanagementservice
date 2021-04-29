@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -14,19 +14,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <body class="w3-light-grey">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4; text-align: center;font-weight: bold; height: 50px;">
+  STUDENT MANAGEMENT SYSTEM
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-right">Logo</span>
+  <span class="w3-bar-item w3-right"></span>
 </div>
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
-      <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>Mike</strong></span><br>
+      <span>Welcome, <strong>Administrator</strong></span><br>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
@@ -38,12 +38,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </div>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a th:href="@{/}" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Overview</a>
-    <a th:href="@{/students}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Students</a>
-    <a th:href="@{/addstudent}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Add Student</a>
-    <a th:href="@{/courses}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  courses</a>
-    <a th:href="@{/addcourse}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Add course</a>
-  </div>
+    <a id="index" th:href="@{/}" class="w3-bar-item w3-button w3-padding" onclick="highlightClicked()"><i class="fa fa-users fa-fw"></i>  Overview</a>
+    <a id="students" th:href="@{/students}" class="w3-bar-item w3-button w3-padding" onclick="highlightClicked()"><i class="fa fa-eye fa-fw"></i>  Students</a>
+    <a id="addstudent" th:href="@{/addstudent}" class="w3-bar-item w3-button w3-padding" onclick="highlightClicked()"><i class="fa fa-users fa-fw"></i>  Add Student</a>
+    <a id="courses" th:href="@{/courses}" class="w3-bar-item w3-button w3-padding" onclick="highlightClicked()"><i class="fa fa-users fa-fw"></i>  courses</a>
+    <a id="addcourse" th:href="@{/addcourse}" class="w3-bar-item w3-button w3-padding" onclick="highlightClicked()"><i class="fa fa-users fa-fw"></i>  Add course</a>
+</div>
 </nav>
 
 
@@ -100,6 +100,37 @@ function getPageViewCount(){
   }
 });
 }
+
+function highlightClicked(){
+    var path = window.location.pathname;
+    $("#index").removeClass('w3-blue');
+    $("#students").removeClass('w3-blue');
+    $("#addstudent").removeClass('w3-blue');
+    $("#courses").removeClass('w3-blue');
+    $("#addcourse").removeClass('w3-blue');
+
+     if(path == '/'){
+       $("#index").addClass('w3-blue');
+     }
+
+     if(path == '/students'){
+       $("#students").addClass('w3-blue');
+     }
+
+     if(path == '/addstudent'){
+       $("#addstudent").addClass('w3-blue');
+     }
+
+     if(path == '/courses'){
+       $("#courses").addClass('w3-blue');
+     }
+
+     if(path == '/addcourse'){
+       $("#addcourse").addClass('w3-blue');
+     }
+     
+}
+highlightClicked();
 
 const interval = setInterval(getPageViewCount, 5000);
 // Close the sidebar with the close button

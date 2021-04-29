@@ -7,12 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Data
 @Table(name="STUDENT")
 public class Student {
 
@@ -20,15 +22,18 @@ public class Student {
 	@Column(name="STUDENT_ID")
 	public int id;
 	
-	@NotEmpty
+	@NotNull(message = "FirstName can not be null!!")
+    @NotEmpty(message = "FirstName can not be empty!!")
 	@Column(name="FIRST_NAME")
 	public String firstName;
 	
-	@NotEmpty
+	@NotNull(message = "LastName can not be null!!")
+    @NotEmpty(message = "LastName can not be empty!!")
 	@Column(name="LAST_NAME")
 	public String lastName;
 	
-	@NotEmpty
+	@NotNull(message = "Email can not be null!!")
+    @NotEmpty(message = "Email can not be empty!!")
 	@Column(name="EMAIL")
 	public String email;
 	

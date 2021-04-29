@@ -1,14 +1,18 @@
 package com.project.StudentManagementService.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.StudentManagementService.domain.Student;
@@ -40,6 +44,7 @@ public class StudentManagementController {
 	@GetMapping("/addstudent")
     String addUser(Model model) {
 		pageView.setCount(pageView.getCount() + 1);
+		model.addAttribute("errorsList", new ArrayList<String>());
 		model.addAttribute("student", new Student());
         return "addstudent";
     }
@@ -55,15 +60,6 @@ public class StudentManagementController {
         return "students";
     }
 	
-	@RequestMapping(value = "/savestudent", method=RequestMethod.POST)
-	public String saveStudent(@Valid Student student, BindingResult result, Model model){
-		if (result.hasErrors()) {
-		    return "addstudent";
-		 }
-		pageView.setCount(pageView.getCount() + 1);
-		 StudentService.saveStudent(student);
-		return "index";
-	}
 	
 	@GetMapping(value="/searchStudent")
 	public String searchStudent(@Valid SearchCriteria searchCriteria, Model model){
@@ -71,5 +67,18 @@ public class StudentManagementController {
 		model.addAttribute("students", StudentService.fetchStudents(searchCriteria));
         return "students";	
 	}
+	
+	@PostMapping("/savestudent")
+    public String submitStudentDetails(@Valid Student student, Model model) {
+		List<String> errors = StudentService.validateStudent(student);
+		if (!errors.isEmpty()) {
+			model.addAttribute("errorsList", errors);
+		    return "addstudent";
+		 } else {
+        	pageView.setCount(pageView.getCount() + 1);
+    		StudentService.saveStudent(student);
+            return "index";
+        }
+    }
 	
 }

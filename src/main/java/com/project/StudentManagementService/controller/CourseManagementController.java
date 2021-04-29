@@ -1,5 +1,6 @@
 package com.project.StudentManagementService.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -31,6 +32,7 @@ public class CourseManagementController {
 	@GetMapping("/addcourse")
     String addUser(Model model) {
 		pageView.setCount(pageView.getCount() + 1);
+		model.addAttribute("errorsList", new ArrayList<String>());
 		model.addAttribute("course", new Course());
         return "addcourse";
     }
@@ -49,7 +51,9 @@ public class CourseManagementController {
 	
 	@RequestMapping(value = "/savecourse", method=RequestMethod.POST)
 	public String saveStudent(@Valid Course course, BindingResult result, Model model){
-		if (result.hasErrors()) {
+		List<String> errors = courseManagementService.validateCourse(course);
+		if (!errors.isEmpty()) {
+			model.addAttribute("errorsList", errors);
 		    return "addcourse";
 		 }
 		pageView.setCount(pageView.getCount() + 1);
